@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: web-notification
+  data:
+    redis:
+      #      host: 10.240.3.62
+      host: localhost
+      port: 6379
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          time-between-eviction-runs: 1000ms
