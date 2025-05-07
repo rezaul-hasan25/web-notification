@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class Message {
     private String message;
     private boolean ack;
+    private String type;
 }

@@ -38,11 +38,11 @@ public class WebNotificationApplication implements CommandLineRunner {
 				break;
 			}
 			if (input.startsWith("222"))
-				webSocketService.send("222", new Message(input, false));
+				webSocketService.send("222", new Message(input, false,"HTML"));
 			else if (input.startsWith("111"))
-				webSocketService.send("111", new Message(input, false));
+				webSocketService.send("111", new Message(input, false,"ACTION"));
 			else if (input.startsWith("333"))
-				webSocketService.send("333", new Message(input, false));
+				webSocketService.send("333", new Message(input, false,"POPUP"));
 
 		}
 

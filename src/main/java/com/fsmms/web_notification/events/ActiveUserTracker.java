@@ -1,4 +1,4 @@
-package com.fsmms.web_notification.config;
+package com.fsmms.web_notification.events;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
