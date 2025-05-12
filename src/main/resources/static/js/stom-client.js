@@ -25,7 +25,7 @@ function StompClientJS(serverURL) {
 
         stompClient.subscribe('/user/queue/notifications', (message) => {
             console.log('Received: ' + message.body);
-            this.trigger("receive", message.body);
+            this.trigger("receive", JSON.parse(message.body));
         });
     }, (error) => {
         console.error('Connection error:', error);

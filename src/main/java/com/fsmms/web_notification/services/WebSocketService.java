@@ -1,5 +1,6 @@
 package com.fsmms.web_notification.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fsmms.web_notification.domain.Message;
 import com.fsmms.web_notification.entity.Status;
 import com.fsmms.web_notification.entity.WebNotification;
@@ -17,6 +18,8 @@ public class WebSocketService implements IWebSocketService {
 
     @Autowired
     private WebNotificationService webNotificationService;
+    @Autowired
+    private ObjectMapper objectMapper;
 
 
     public WebSocketService(SimpMessagingTemplate messagingTemplate) {
@@ -30,7 +33,7 @@ public class WebSocketService implements IWebSocketService {
             messagingTemplate.convertAndSendToUser(
                     clientId,
                     "/queue/notifications",
-                    message.getMessage()
+                   objectMapper.writeValueAsString(message)
             );
         else{
             WebNotification webNotification = MessageConverter.toEntity(message,clientId);

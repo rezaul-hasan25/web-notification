@@ -23,6 +23,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
                 .setAllowedOrigins(webSocketProperties.getAllowedOrigins().toArray(new String[0]))
+//                .setAllowedOrigins("http://localhost:8080")
                 .setHandshakeHandler(new UserHandshakeHandler())
                 .withSockJS();
     }

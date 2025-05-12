@@ -53,7 +53,7 @@ public class ActiveUserTracker {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
         if (sha.getUser() != null) {
             DatabaseService.getInstance().removeUser(sha.getUser().getName());
-            System.out.println("Active Users: " + sha.getUser().getName());
+            System.out.println("Disconnected Users: " + sha.getUser().getName());
         }
     }
 }
