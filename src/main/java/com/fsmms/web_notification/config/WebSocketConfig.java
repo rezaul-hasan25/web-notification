@@ -16,12 +16,11 @@ import java.util.Map;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    public static final String DESTINATION = "/queue/updates";
     @Autowired
     private WebSocketProperties webSocketProperties;
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws")
+        registry.addEndpoint(webSocketProperties.getEndpoint())
                 .setAllowedOrigins(webSocketProperties.getAllowedOrigins().toArray(new String[0]))
 //                .setAllowedOrigins("http://localhost:8080")
                 .setHandshakeHandler(new UserHandshakeHandler())
@@ -30,9 +29,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/queue"); // Broker destinations
-        registry.setApplicationDestinationPrefixes("/app"); // App destinations
-        registry.setUserDestinationPrefix("/user"); // For user-specific messaging
+        registry.enableSimpleBroker(webSocketProperties.getBrokerPrefixes().toArray(new String[0]));
+        registry.setApplicationDestinationPrefixes(webSocketProperties.getAppDestinationPrefix());
+        registry.setUserDestinationPrefix(webSocketProperties.getUserDestinationPrefix());
     }
 
 }
