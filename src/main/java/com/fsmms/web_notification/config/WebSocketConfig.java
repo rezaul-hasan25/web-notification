@@ -1,5 +1,6 @@
 package com.fsmms.web_notification.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -16,10 +17,12 @@ import java.util.Map;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     public static final String DESTINATION = "/queue/updates";
+    @Autowired
+    private WebSocketProperties webSocketProperties;
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("http://localhost:8080")
+                .setAllowedOrigins(webSocketProperties.getAllowedOrigins().toArray(new String[0]))
                 .setHandshakeHandler(new UserHandshakeHandler())
                 .withSockJS();
     }

@@ -6,33 +6,30 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <script src="js/stom-client.js"></script>
     <script>
-        $( document ).ready(function() {
-            console.log( "ready!" );
-            var serverURL = 'http://127.0.0.1:8080/ws?user=' + $("#user").val();
-            var socket = new SockJS(serverURL);
-            var stompClient = Stomp.over(socket);
+        $( document ).ready(function(){
 
-            stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
 
-            stompClient.subscribe('/user/queue/notifications', function (message) {
-                    console.log('Received: ' + message.body);
-                    document.getElementById('messagebox').innerHTML += message.body + "\n";
+            const clients = [];
+
+            for (let i = 1000; i < 2000; i++) {
+                const userId = 1000 + i;  // Unique user IDs like 1000, 1001, ...
+                const client = new StompClientJS("http://127.0.0.1:8080/ws?user=" + i);
+
+                client.on("receive", function (msg) {
+
+                    document.getElementById('messagebox').innerHTML += `${msg}\n`;
                 });
-            });
+
+                clients.push(client);
+            }
 
 
-            socket.onerror = function (error) {
-                console.error('Error: ' + error.message);
-            };
         });
 
-
-
-
-
     </script>
+
 </head>
 <body>
 <input type="hidden" id="user" th:value="${user}"/>

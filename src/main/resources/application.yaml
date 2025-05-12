@@ -41,3 +41,14 @@ management:
 
 server:
   port: ${SERVER_PORT:8080}
+  tomcat:
+    max-connections: 10000
+    threads:
+      max: 2000
+
+
+websocket:
+  allowed-origins:
+    - http://localhost:8080
+    - http://127.0.0.1:5500
+    - http://myapp.com

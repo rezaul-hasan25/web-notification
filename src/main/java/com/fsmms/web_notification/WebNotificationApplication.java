@@ -37,18 +37,9 @@ public class WebNotificationApplication implements CommandLineRunner {
 				System.out.println("Exiting loop...");
 				break;
 			}
-			if (input.startsWith("222")) {
-				webSocketService.send("222", new Message(input, false, "HTML"));
-			}
-			else if (input.startsWith("111"))
-				webSocketService.send("111", new Message(input, false,"EVENT"));
-			else if (input.startsWith("333"))
-				webSocketService.send("333", new Message(input, false,"POPUP"));
-			else if (input.startsWith("000"))
-			{
 
-			}
-
+			String[] message = input.split(" ", 2);
+			webSocketService.send(message[0], new Message(message[1], false, "HTML"));
 
 		}
 
