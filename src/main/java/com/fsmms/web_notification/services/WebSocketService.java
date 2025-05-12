@@ -1,6 +1,7 @@
 package com.fsmms.web_notification.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fsmms.web_notification.config.WebSocketProperties;
 import com.fsmms.web_notification.domain.Message;
 import com.fsmms.web_notification.entity.Status;
 import com.fsmms.web_notification.entity.WebNotification;
@@ -21,6 +22,9 @@ public class WebSocketService implements IWebSocketService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private WebSocketProperties properties;
+
 
     public WebSocketService(SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
@@ -40,5 +44,10 @@ public class WebSocketService implements IWebSocketService {
             webNotification.setStatus(Status.PENDING);
             webNotificationService.save(webNotification);
         }
+    }
+
+    @Override
+    public void send(Message message) throws Exception {
+        messagingTemplate.convertAndSend(properties.getBrokerPrefixes().get(0).concat("/public"), objectMapper.writeValueAsString(message));
     }
 }

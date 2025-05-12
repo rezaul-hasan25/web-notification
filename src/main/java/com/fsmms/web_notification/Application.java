@@ -1,25 +1,23 @@
 package com.fsmms.web_notification;
 
 import com.fsmms.web_notification.domain.Message;
-import com.fsmms.web_notification.services.WebSocketService;
 import com.fsmms.web_notification.services.interfaces.IWebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 @SpringBootApplication
-public class WebNotificationApplication implements CommandLineRunner {
+public class Application implements CommandLineRunner {
 
 	@Autowired
 	IWebSocketService webSocketService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebNotificationApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 
@@ -39,7 +37,10 @@ public class WebNotificationApplication implements CommandLineRunner {
 			}
 
 			String[] message = input.split(" ", 2);
-			webSocketService.send(message[0], new Message(message[1], false, "HTML"));
+			if (Objects.equals(message[0], "0000"))
+				webSocketService.send(new Message(message[1], false, "HTML"));
+			else
+				webSocketService.send(message[0], new Message(message[1], false, "HTML"));
 
 		}
 

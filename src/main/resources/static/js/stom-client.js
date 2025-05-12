@@ -27,6 +27,12 @@ function StompClientJS(serverURL) {
             console.log('Received: ' + message.body);
             this.trigger("receive", JSON.parse(message.body));
         });
+
+        stompClient.subscribe('/topic/public', (message) => {
+            console.log('Received: ' + message.body);
+            this.trigger("receive", JSON.parse(message.body));
+        });
+
     }, (error) => {
         console.error('Connection error:', error);
         this.trigger("error", error);
