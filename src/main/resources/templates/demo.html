@@ -8,18 +8,23 @@
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
     <script src="js/stom-client.js"></script>
     <script>
+
+        var client ={};
+
         $( document ).ready(function(){
 
 
 
 
                 const userId = $("#user").val();
-                const client = new StompClientJS("http://127.0.0.1:8080/ws?user=" + userId);
+                client = new StompClientJS("http://127.0.0.1:8080/ws?user=" + userId);
 
                 client.on("receive", function (msg) {
 
-                    document.getElementById('messagebox').innerHTML += `${msg}\n`;
+                    document.getElementById('messagebox').innerHTML += `${msg.message}\n`;
                 });
+
+
 
 
 
@@ -41,6 +46,23 @@
 
         });
 
+
+
+
+        function send(){
+            client.send(
+             JSON.stringify({
+                message: $("#message").val(),
+                ack : false,
+                type: "HTML",
+                recipientId: $("#client").val(),
+                sender: $("#user").val()
+             })
+             );
+
+        }
+
+
     </script>
 
 </head>
@@ -50,6 +72,15 @@
 <span th:text="${user}">Message box :: </span>
 <div id="messagebox">
 
+</div>
+
+
+<div>
+    <label for="client">Client</label>
+    <input type="text" id="client" />
+    <label for="message">Message</label>
+    <input type="text" id="message" />
+    <input type="button" onclick="send();" value="Send">
 </div>
 </body>
 </html>

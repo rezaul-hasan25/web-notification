@@ -47,7 +47,7 @@ public class WebSocketService implements IWebSocketService {
     }
 
     @Override
-    public void send(Message message) throws Exception {
+    public void sendPublic(Message message) throws Exception {
         messagingTemplate.convertAndSend(properties.getBrokerPrefixes().get(0).concat("/public"), objectMapper.writeValueAsString(message));
     }
 }

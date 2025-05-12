@@ -1,7 +1,7 @@
 function StompClientJS(serverURL) {
 
     var socket = new SockJS(serverURL);
-    var stompClient = Stomp.over(socket);
+    this.stompClient = Stomp.over(socket);
     this.eventHandlers = {};
     const allowedEvents = ["receive", "connect", "error"];
 
@@ -19,16 +19,20 @@ function StompClientJS(serverURL) {
         }
     };
 
-    stompClient.connect({}, (frame) => {
+    this.stompClient.connect({}, (frame) => {
         console.log('Connected: ' + frame);
         this.trigger("connect", frame);
 
-        stompClient.subscribe('/user/queue/notifications', (message) => {
+        this.stompClient.subscribe('/user/queue/notifications', (message) => {
             console.log('Received: ' + message.body);
             this.trigger("receive", JSON.parse(message.body));
         });
 
-        stompClient.subscribe('/topic/public', (message) => {
+        this.stompClient.subscribe('/topic/public', (message) => {
+            console.log('Received: ' + message.body);
+            this.trigger("receive", JSON.parse(message.body));
+        });
+        this.stompClient.subscribe('/user/queue/private', (message) => {
             console.log('Received: ' + message.body);
             this.trigger("receive", JSON.parse(message.body));
         });
@@ -37,4 +41,13 @@ function StompClientJS(serverURL) {
         console.error('Connection error:', error);
         this.trigger("error", error);
     });
+
+
+    //
+    this.send = (message) =>
+    {
+        this.stompClient.send("/app/private", {}, message);
+    }
+
+
 }

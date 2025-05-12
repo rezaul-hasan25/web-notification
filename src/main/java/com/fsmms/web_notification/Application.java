@@ -38,9 +38,14 @@ public class Application implements CommandLineRunner {
 
 			String[] message = input.split(" ", 2);
 			if (Objects.equals(message[0], "0000"))
-				webSocketService.send(new Message(message[1], false, "HTML"));
+				webSocketService.sendPublic(Message.builder()
+								.message(message[1])
+						.build());
 			else
-				webSocketService.send(message[0], new Message(message[1], false, "HTML"));
+				webSocketService.send(message[0], Message.builder()
+								.recipientId(message[0])
+								.message(message[1])
+						.build());
 
 		}
 
