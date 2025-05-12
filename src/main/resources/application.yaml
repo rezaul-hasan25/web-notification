@@ -29,7 +29,7 @@ spring:
         order_inserts: true
         order_updates: true
         generate_statistics: false
-    show-sql: true                   # Disable in prod
+    show-sql: false                   # Disable in prod
     open-in-view: false
     repositories:
       enabled: true
