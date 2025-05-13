@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class UserHandshakeHandler extends DefaultHandshakeHandler {
 
-    private final Logger LOG = LoggerFactory.getLogger(UserHandshakeHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(UserHandshakeHandler.class);
 
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
@@ -27,7 +27,7 @@ public class UserHandshakeHandler extends DefaultHandshakeHandler {
         }
         String finalUserId = userId;
 
-
+        logger.info("Authenticate user {0}", finalUserId);
         return () -> finalUserId;
     }
 }
