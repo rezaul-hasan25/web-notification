@@ -3,7 +3,8 @@ spring:
     name: web-notification
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/we_notification
+    url: jdbc:postgresql://db:5432/we_notification
+#    url: jdbc:postgresql://localhost:5432/we_notification
     driver-class-name: org.postgresql.Driver
     username: postgre
     password: postgre

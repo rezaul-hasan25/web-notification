@@ -11,7 +11,9 @@ import java.util.Objects;
 import java.util.Scanner;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class Application
+//		implements CommandLineRunner
+{
 
 	@Autowired
 	IWebSocketService webSocketService;
@@ -24,32 +26,32 @@ public class Application implements CommandLineRunner {
 
 
 	/// This method is testing purpose
-	@Override
-	public void run(String... args) throws Exception {
-		Scanner scanner = new Scanner(System.in);
-
-		while (true) {
-			System.out.print("Enter message to send: ");
-			String input = scanner.nextLine();
-
-			if ("exit".equalsIgnoreCase(input)) {
-				System.out.println("Exiting loop...");
-				break;
-			}
-
-			String[] message = input.split(" ", 2);
-			if (Objects.equals(message[0], "0000"))
-				webSocketService.sendPublic(Message.builder()
-								.message(message[1])
-						.build());
-			else
-				webSocketService.send(message[0], Message.builder()
-								.recipientId(message[0])
-								.message(message[1])
-						.build());
-
-		}
-
-		System.exit(0);
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		Scanner scanner = new Scanner(System.in);
+//
+//		while (true) {
+//			System.out.print("Enter message to send: ");
+//			String input = scanner.nextLine();
+//
+//			if ("exit".equalsIgnoreCase(input)) {
+//				System.out.println("Exiting loop...");
+//				break;
+//			}
+//
+//			String[] message = input.split(" ", 2);
+//			if (Objects.equals(message[0], "0000"))
+//				webSocketService.sendPublic(Message.builder()
+//								.message(message[1])
+//						.build());
+//			else
+//				webSocketService.send(message[0], Message.builder()
+//								.recipientId(message[0])
+//								.message(message[1])
+//						.build());
+//
+//		}
+//
+//		System.exit(0);
+//	}
 }

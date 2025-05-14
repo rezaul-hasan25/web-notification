@@ -12,42 +12,13 @@
         var client ={};
 
         $( document ).ready(function(){
-
-
-
-
                 const userId = $("#user").val();
                 client = new StompClientJS("http://127.0.0.1:8080/ws?user=" + userId);
-
                 client.on("receive", function (msg) {
 
                     document.getElementById('messagebox').innerHTML += `${msg.message}\n`;
                 });
-
-
-
-
-
-
-<!--            const clients = [];-->
-
-<!--            for (let i = 1000; i < 1050; i++) {-->
-<!--                const userId = 1000 + i;  // Unique user IDs like 1000, 1001, ...-->
-<!--                const client = new StompClientJS("http://127.0.0.1:8080/ws?user=" + i);-->
-
-<!--                client.on("receive", function (msg) {-->
-
-<!--                    document.getElementById('messagebox').innerHTML += `${msg}\n`;-->
-<!--                });-->
-
-<!--                clients.push(client);-->
-<!--            }-->
-
-
         });
-
-
-
 
         function send(){
             client.send(
